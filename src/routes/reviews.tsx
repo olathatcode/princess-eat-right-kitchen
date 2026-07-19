@@ -314,10 +314,11 @@ function ReviewsPage() {
               {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-5 w-5 ${star <= Math.round(averageRating)
+                  className={`h-5 w-5 ${
+                    star <= Math.round(averageRating)
                       ? "fill-primary text-primary"
                       : "text-muted-foreground/30"
-                    }`}
+                  }`}
                 />
               ))}
               <span className="ml-2 text-sm text-muted-foreground">
@@ -396,10 +397,11 @@ function ReviewsPage() {
                         className="p-1 hover:scale-110 transition-transform"
                       >
                         <Star
-                          className={`h-8 w-8 ${star <= formRating
+                          className={`h-8 w-8 ${
+                            star <= formRating
                               ? "fill-primary text-primary"
                               : "text-muted-foreground/30"
-                            }`}
+                          }`}
                         />
                       </button>
                     ))}
@@ -457,10 +459,11 @@ function ReviewsPage() {
                           key={dish}
                           type="button"
                           onClick={() => handleDishToggle(dish)}
-                          className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${isSelected
+                          className={`rounded-full px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${
+                            isSelected
                               ? "bg-primary/15 text-primary border border-primary"
                               : "bg-muted text-muted-foreground border border-transparent hover:bg-muted/80"
-                            }`}
+                          }`}
                         >
                           {dish}
                         </button>
@@ -594,10 +597,11 @@ function ReviewsPage() {
                           {[1, 2, 3, 4, 5].map((star) => (
                             <Star
                               key={star}
-                              className={`h-3.5 w-3.5 ${star <= review.rating
+                              className={`h-3.5 w-3.5 ${
+                                star <= review.rating
                                   ? "fill-primary text-primary"
                                   : "text-muted-foreground/20"
-                                }`}
+                              }`}
                             />
                           ))}
                           <span className="ml-2 text-xs text-muted-foreground">{review.date}</span>
@@ -634,10 +638,11 @@ function ReviewsPage() {
                     <div className="flex items-center justify-between">
                       <button
                         onClick={() => handleHelpful(review.id)}
-                        className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${helpfulClicked[review.id]
+                        className={`flex items-center gap-1.5 text-xs font-medium transition-colors ${
+                          helpfulClicked[review.id]
                             ? "text-primary"
                             : "text-muted-foreground hover:text-foreground"
-                          }`}
+                        }`}
                       >
                         <ThumbsUp className="h-3.5 w-3.5" />
                         <span>Helpful ({review.helpfulCount})</span>
