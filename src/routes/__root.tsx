@@ -4,13 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
   useRouterState,
 } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState } from "react";
+import { Toaster } from "sonner";
 
-import appCss from "../styles.css?url";
+import { CartProvider } from "@/context/CartContext";
 
 function NotFoundComponent() {
   return (
@@ -70,48 +69,11 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Princess Eat Right Kitchen — Ijebu Ode" },
-      {
-        name: "description",
-        content:
-          "Women-owned Nigerian kitchen in Ijebu Ode serving home-style Jollof Rice, Fried Rice, Egusi, Efo Riro, and more.",
-      },
-      { name: "author", content: "Princess Eat Right Kitchen" },
-      { property: "og:site_name", content: "Princess Eat Right Kitchen" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
 
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
@@ -142,6 +104,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <CartProvider>
       {isNavigating && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm animate-fade-in">
           <div className="flex flex-col items-center gap-3">
@@ -154,6 +117,18 @@ function RootComponent() {
       )}
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          classNames: {
+            toast: "rounded-xl border border-border bg-card text-foreground shadow-lg text-sm",
+            success: "border-primary/30",
+            error: "border-destructive/30",
+          },
+        }}
+        richColors
+      />
+      </CartProvider>
     </QueryClientProvider>
   );
 }
