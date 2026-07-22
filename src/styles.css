@@ -258,3 +258,32 @@ h3 {
 .animate-pulse-ring {
   animation: pulseRing 2s ease-out infinite;
 }
+
+/* ── Gradient flow for text ─────────────────────────────────────── */
+@keyframes gradientFlow {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+.animate-gradient-flow {
+  animation: gradientFlow 3s ease infinite;
+}
+
+/* ── Hero image slow rotation ───────────────────────────────────── */
+@keyframes rotateHero {
+  from { transform: rotate(0deg) scale(1.08); }
+  to   { transform: rotate(360deg) scale(1.08); }
+}
+.animate-rotate-hero {
+  animation: rotateHero 18s linear infinite;
+  transform-origin: center center;
+}
+
+/* ── Outer dashed ring slow counter-spin ────────────────────────── */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+.animate-spin-slow {
+  animation: spinSlow 24s linear infinite;
+}

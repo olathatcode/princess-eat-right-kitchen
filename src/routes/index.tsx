@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShoppingCart, Clock, Star, CheckCircle2, Truck, CalendarCheck, ChefHat, Quote } from "lucide-react";
+import { useState, useEffect } from "react";
 import { MENU } from "@/data/menu";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { useCart } from "@/context/CartContext";
@@ -57,7 +58,7 @@ function DishCard({ item }: { item: (typeof MENU)[number] }) {
   const qty = getQuantity(item.slug);
 
   return (
-    <div className="group flex w-52 shrink-0 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-56">
+    <div className="group flex w-52 shrink-0 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-89">
       {/* image */}
       <div className="relative aspect-square overflow-hidden bg-muted">
         <img
@@ -123,6 +124,98 @@ const REVIEWS = [
   },
 ];
 
+/* ─── Testimonials Carousel ────────────────────────────────────────────── */
+function TestimonialsCarousel() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-advance every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % REVIEWS.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
+      <div className="mb-10 text-center">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+          Reviews
+        </p>
+        <h2 className="mt-2 font-display text-3xl text-foreground sm:text-4xl">
+          What are our{" "}
+          <span className="text-primary">Customers</span>{" "}
+          say about us
+        </h2>
+      </div>
+
+      {/* Carousel container */}
+      <div className="relative overflow-hidden">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {REVIEWS.map((r) => (
+            <div
+              key={r.name}
+              className="w-full shrink-0 px-4"
+            >
+              <div className="mx-auto max-w-2xl relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-8 shadow-lg">
+                <Quote className="absolute right-5 top-5 h-10 w-10 text-primary/10" />
+                {/* stars */}
+                <div className="flex gap-0.5 justify-center sm:justify-start">
+                  {Array.from({ length: r.rating }).map((_, s) => (
+                    <Star key={s} className="h-5 w-5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-base sm:text-lg leading-relaxed text-muted-foreground text-center sm:text-left">
+                  "{r.text}"
+                </p>
+                <div className="mt-4 flex items-center justify-center sm:justify-start gap-3 border-t border-border/60 pt-4">
+                  {/* avatar placeholder */}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-base font-bold text-primary">
+                    {r.name[0]}
+                  </div>
+                  <div>
+                    <p className="text-base font-semibold text-foreground">{r.name}</p>
+                    <p className="text-xs text-muted-foreground">{r.role}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Navigation dots */}
+      <div className="mt-8 flex items-center justify-center gap-2">
+        {REVIEWS.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActiveIndex(i)}
+            className={
+              "h-2 rounded-full transition-all duration-300 " +
+              (i === activeIndex
+                ? "w-8 bg-primary"
+                : "w-2 bg-border hover:bg-primary/50")
+            }
+            aria-label={`Go to testimonial ${i + 1}`}
+          />
+        ))}
+      </div>
+
+      <div className="mt-8 text-center">
+        <Link
+          to="/reviews"
+          className="inline-flex rounded-full border border-border bg-card px-6 py-2.5 text-sm font-medium text-foreground transition hover:border-primary/50 hover:text-primary"
+        >
+          See all reviews →
+        </Link>
+      </div>
+    </section>
+  );
+}
+
 /* ─── Home page ────────────────────────────────────────────────────────── */
 function Home() {
   const popularDishes = MENU.filter((m) =>
@@ -187,8 +280,8 @@ function Home() {
               className="relative flex items-center justify-center animate-fade-in-up"
               style={{ animationDelay: "150ms" }}
             >
-              {/* outer decorative dashed ring */}
-              <div className="absolute h-[360px] w-[360px] rounded-full border-2 border-dashed border-primary/25 sm:h-[420px] sm:w-[420px]" />
+              {/* outer decorative dashed ring — slow counter-spin */}
+              <div className="absolute h-[360px] w-[360px] rounded-full border-2 border-dashed border-primary/25 sm:h-[420px] sm:w-[420px] animate-spin-slow" />
               {/* inner tinted circle bg */}
               <div className="relative h-[300px] w-[300px] overflow-hidden rounded-full border-4 border-white/60 bg-primary/5 shadow-2xl sm:h-[360px] sm:w-[360px] dark:border-white/10">
                 <img
@@ -198,7 +291,7 @@ function Home() {
                   height={720}
                   fetchPriority="high"
                   loading="eager"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover animate-rotate-hero"
                 />
               </div>
 
@@ -279,7 +372,7 @@ function Home() {
           </div>
 
           {/* horizontal scroll row */}
-          <div className="-mx-4 flex gap-4 overflow-x-auto px-4 pb-4 scrollbar-hide sm:grid sm:grid-cols-3 sm:overflow-visible sm:pb-0 lg:grid-cols-4">
+          <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-4 scrollbar-hide sm:grid sm:grid-cols-3 sm:gap-3 sm:overflow-visible sm:pb-0">
             {popularDishes.map((item, i) => (
               <div
                 key={item.slug}
@@ -367,58 +460,9 @@ function Home() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════
-            §4  TESTIMONIALS
+            §4  TESTIMONIALS — carousel
         ══════════════════════════════════════════════════════════════ */}
-        <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
-          <div className="mb-10 text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-              Reviews
-            </p>
-            <h2 className="mt-2 font-display text-3xl text-foreground sm:text-4xl">
-              What are our{" "}
-              <span className="text-primary">Customers</span>{" "}
-              say about us
-            </h2>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {REVIEWS.map((r, i) => (
-              <div
-                key={r.name}
-                className="relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm transition hover:shadow-md animate-fade-in-up"
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <Quote className="absolute right-5 top-5 h-8 w-8 text-primary/10" />
-                {/* stars */}
-                <div className="flex gap-0.5">
-                  {Array.from({ length: r.rating }).map((_, s) => (
-                    <Star key={s} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">"{r.text}"</p>
-                <div className="mt-auto flex items-center gap-3 border-t border-border/60 pt-4">
-                  {/* avatar placeholder */}
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
-                    {r.name[0]}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{r.name}</p>
-                    <p className="text-[11px] text-muted-foreground">{r.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 text-center">
-            <Link
-              to="/reviews"
-              className="inline-flex rounded-full border border-border bg-card px-6 py-2.5 text-sm font-medium text-foreground transition hover:border-primary/50 hover:text-primary"
-            >
-              See all reviews →
-            </Link>
-          </div>
-        </section>
+        <TestimonialsCarousel />
 
         {/* ══════════════════════════════════════════════════════════════
             §5  CTA BANNER

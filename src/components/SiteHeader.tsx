@@ -188,14 +188,19 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         {/* Brand */}
         <div>
-          <Link to="/" className="inline-block">
+          <Link to="/" className="inline-block group">
             <img
               src="/logo.png"
               alt="Princess Eat Right Kitchen"
-              className="h-28 w-28 object-contain rounded-2xl"
+              className="h-28 w-28 object-contain rounded-2xl bg-white/10 p-1 transition-transform duration-700 group-hover:rotate-[360deg]"
             />
           </Link>
-          <p className="mt-3 text-sm text-secondary-foreground/75 leading-relaxed">
+          <div className="mt-3">
+            <h3 className="text-base font-display font-bold bg-gradient-to-r from-primary via-pink-500 to-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-flow">
+              Princess Eat Right Kitchen
+            </h3>
+          </div>
+          <p className="mt-2 text-sm text-secondary-foreground/75 leading-relaxed">
             Women-owned home-style Nigerian kitchen.
             <br />
             Dine-in, kerbside pickup, and delivery.
