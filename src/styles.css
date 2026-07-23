@@ -287,3 +287,59 @@ h3 {
 .animate-spin-slow {
   animation: spinSlow 24s linear infinite;
 }
+
+/* ── Marquee scroll animation ───────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ── Floating emoji particles ───────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25%      { transform: translateY(-20px) translateX(10px); }
+  50%      { transform: translateY(-40px) translateX(-10px); }
+  75%      { transform: translateY(-20px) translateX(5px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-delay-1 { animation-delay: 1s; }
+.animate-float-delay-2 { animation-delay: 2s; }
+.animate-float-delay-3 { animation-delay: 3s; }
+.animate-float-delay-4 { animation-delay: 4s; }
+
+/* ── Initial page-load preloader ───────────────────────────────── */
+@keyframes preloaderLogo {
+  0%   { opacity: 0; transform: scale(0.6) rotate(-10deg); }
+  40%  { opacity: 1; transform: scale(1.08) rotate(4deg); }
+  65%  { transform: scale(0.96) rotate(-2deg); }
+  80%  { transform: scale(1) rotate(0deg); }
+  90%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.15); }
+}
+.animate-preloader-logo {
+  animation: preloaderLogo 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes preloaderText {
+  0%   { opacity: 0; transform: translateY(12px); }
+  35%  { opacity: 1; transform: translateY(0); }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-preloader-text {
+  animation: preloaderText 2s ease forwards;
+}
+
+@keyframes loadingBar {
+  0%   { width: 0%; opacity: 1; }
+  80%  { width: 100%; opacity: 1; }
+  100% { width: 100%; opacity: 0; }
+}
+.animate-loading-bar {
+  animation: loadingBar 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}

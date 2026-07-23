@@ -10,13 +10,16 @@ type Props = {
 };
 
 export function CartDrawer({ open, onClose }: Props) {
-  const { items, itemCount, totalCount, totalPrice, removeItem, setQuantity, clearCart } = useCart();
+  const { items, itemCount, totalCount, totalPrice, removeItem, setQuantity, clearCart } =
+    useCart();
   const drawerRef = useRef<HTMLDivElement>(null);
 
   // Escape key
   useEffect(() => {
     if (!open) return;
-    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [open, onClose]);
@@ -24,12 +27,17 @@ export function CartDrawer({ open, onClose }: Props) {
   // Body scroll lock
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   // WhatsApp message
   const orderLines = items
-    .map((ci) => `• ${ci.quantity}× ${ci.item.name} — ${formatNaira(ci.item.priceNaira * ci.quantity)}`)
+    .map(
+      (ci) =>
+        `• ${ci.quantity}× ${ci.item.name} — ${formatNaira(ci.item.priceNaira * ci.quantity)}`,
+    )
     .join("\n");
   const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
     `Hello Princess Eat Right Kitchen 👋\n\nI'd like to place this order:\n\n${orderLines}\n\n*Total: ${formatNaira(totalPrice)}*\n\nPlease confirm availability. Thank you!`,
@@ -111,7 +119,10 @@ export function CartDrawer({ open, onClose }: Props) {
           ) : (
             <ul className="divide-y divide-border/60">
               {items.map((ci) => (
-                <li key={ci.item.slug} className="flex gap-3 px-4 py-4 transition hover:bg-muted/30">
+                <li
+                  key={ci.item.slug}
+                  className="flex gap-3 px-4 py-4 transition hover:bg-muted/30"
+                >
                   {/* Thumbnail */}
                   <div className="relative h-[4.5rem] w-[4.5rem] shrink-0 overflow-hidden rounded-xl bg-muted">
                     <img
@@ -188,7 +199,8 @@ export function CartDrawer({ open, onClose }: Props) {
             <div className="mb-4 rounded-xl bg-muted/60 px-4 py-3">
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">
-                  {itemCount} {itemCount === 1 ? "dish" : "dishes"} · {totalCount} {totalCount === 1 ? "portion" : "portions"}
+                  {itemCount} {itemCount === 1 ? "dish" : "dishes"} · {totalCount}{" "}
+                  {totalCount === 1 ? "portion" : "portions"}
                 </span>
                 <span className="font-display text-xl font-semibold text-foreground">
                   {formatNaira(totalPrice)}

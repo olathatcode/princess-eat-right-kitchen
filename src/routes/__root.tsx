@@ -74,11 +74,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const state = useRouterState();
   const [isNavigating, setIsNavigating] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   // Initialize theme
   useEffect(() => {
@@ -92,12 +92,20 @@ function RootComponent() {
     }
   }, []);
 
-  // Trigger 0.2s preloader on route change
+  // Initial page load preloader (2s fade)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Trigger route-change preloader
   useEffect(() => {
     setIsNavigating(true);
     const timer = setTimeout(() => {
       setIsNavigating(false);
-    }, 200);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, [state.location.pathname]);
@@ -105,29 +113,70 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
-      {isNavigating && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm animate-fade-in">
-          <div className="flex flex-col items-center gap-3">
-            <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            <span className="font-display text-sm font-medium tracking-widest text-foreground uppercase animate-pulse">
-              Princess Kitchen
-            </span>
+        {/* ── Initial page load preloader ── */}
+        {isInitialLoad && (
+          <div
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background transition-opacity duration-700"
+            style={{ opacity: isInitialLoad ? 1 : 0 }}
+          >
+            {/* pulsing ring behind logo */}
+            <div className="relative flex items-center justify-center">
+              <span className="absolute h-32 w-32 animate-ping rounded-full bg-primary/10" />
+              <span className="absolute h-24 w-24 animate-ping rounded-full bg-primary/15 [animation-delay:300ms]" />
+              <img
+                src="/logo.png"
+                alt="Princess Eat Right Kitchen"
+                className="relative z-10 h-24 w-24 animate-preloader-logo object-contain drop-shadow-2xl"
+              />
+            </div>
+            {/* brand name */}
+            <p className="mt-6 animate-preloader-text font-display text-lg font-bold uppercase tracking-[0.3em] text-foreground">
+              Princess Eat Right
+            </p>
+            <p className="animate-preloader-text font-sans text-[10px] font-semibold uppercase tracking-[0.4em] text-primary [animation-delay:200ms]">
+              Ijebu Ode · Ogun State
+            </p>
+            {/* loading bar */}
+            <div className="mt-8 h-0.5 w-40 overflow-hidden rounded-full bg-border">
+              <div className="h-full animate-loading-bar rounded-full bg-primary" />
+            </div>
           </div>
-        </div>
-      )}
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
-      <Toaster
-        position="bottom-right"
-        toastOptions={{
-          classNames: {
-            toast: "rounded-xl border border-border bg-card text-foreground shadow-lg text-sm",
-            success: "border-primary/30",
-            error: "border-destructive/30",
-          },
-        }}
-        richColors
-      />
+        )}
+
+        {/* ── Route-change preloader ── */}
+        {isNavigating && !isInitialLoad && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm animate-fade-in">
+            <div className="flex flex-col items-center gap-3">
+              <div className="relative h-12 w-12">
+                <div className="absolute inset-0 animate-spin rounded-full border-4 border-primary/20" />
+                <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-primary [animation-duration:600ms]" />
+                <img
+                  src="/logo.png"
+                  alt=""
+                  className="absolute inset-1 h-8 w-8 object-contain opacity-80"
+                  aria-hidden="true"
+                />
+              </div>
+              <span className="font-display text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground animate-pulse">
+                Loading…
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <Outlet />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            classNames: {
+              toast: "rounded-xl border border-border bg-card text-foreground shadow-lg text-sm",
+              success: "border-primary/30",
+              error: "border-destructive/30",
+            },
+          }}
+          richColors
+        />
       </CartProvider>
     </QueryClientProvider>
   );

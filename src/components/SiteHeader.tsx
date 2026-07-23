@@ -26,7 +26,9 @@ export function SiteHeader() {
   useEffect(() => {
     if (mobileOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   const toggleTheme = () => {
@@ -211,7 +213,11 @@ export function SiteFooter() {
               { to: "/menu", label: "Menu" },
               { to: "/reviews", label: "Reviews" },
             ].map(({ to, label }) => (
-              <Link key={to} to={to} className="hover:text-secondary-foreground hover:underline transition">
+              <Link
+                key={to}
+                to={to}
+                className="hover:text-secondary-foreground hover:underline transition"
+              >
                 {label}
               </Link>
             ))}

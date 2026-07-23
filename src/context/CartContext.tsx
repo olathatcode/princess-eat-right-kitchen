@@ -57,9 +57,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         items: state.items.map((ci) =>
-          ci.item.slug === action.slug
-            ? { ...ci, quantity: Math.min(action.quantity, 20) }
-            : ci,
+          ci.item.slug === action.slug ? { ...ci, quantity: Math.min(action.quantity, 20) } : ci,
         ),
       };
     }
@@ -79,10 +77,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const itemCount = state.items.length;
   const totalCount = state.items.reduce((sum, ci) => sum + ci.quantity, 0);
-  const totalPrice = state.items.reduce(
-    (sum, ci) => sum + ci.item.priceNaira * ci.quantity,
-    0,
-  );
+  const totalPrice = state.items.reduce((sum, ci) => sum + ci.item.priceNaira * ci.quantity, 0);
 
   const addItem = (item: MenuItem) => dispatch({ type: "ADD", item });
   const removeItem = (slug: string) => dispatch({ type: "REMOVE", slug });
@@ -94,7 +89,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items: state.items, itemCount, totalCount, totalPrice, addItem, removeItem, setQuantity, clearCart, getQuantity }}
+      value={{
+        items: state.items,
+        itemCount,
+        totalCount,
+        totalPrice,
+        addItem,
+        removeItem,
+        setQuantity,
+        clearCart,
+        getQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

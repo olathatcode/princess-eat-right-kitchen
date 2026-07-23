@@ -92,8 +92,7 @@ export const MENU: MenuItem[] = [
     description:
       "A popular Nigerian swallow made from high-quality semolina flour, cooked to a smooth, firm, and stretchy consistency.",
     ingredients: ["Semolina flour", "Water"],
-    image:
-      "https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/1200x/e6/c9/5b/e6c95b6abb2397423e61d05f004757c0.jpg",
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -105,8 +104,7 @@ export const MENU: MenuItem[] = [
     description:
       "A staple Nigerian swallow made from pan-fried grated cassava (garri) mixed with hot water to form a firm, dough-like texture.",
     ingredients: ["Garri (cassava grains)", "Water"],
-    image:
-      "https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/vwebp/1200x/fa/8e/03/fa8e03bad48021d28a3181e5e2e4afb0.webp",
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -118,8 +116,7 @@ export const MENU: MenuItem[] = [
     description:
       "A smooth, soft, and slightly sour swallow made from fermented cassava, cooked and pounded to perfection.",
     ingredients: ["Fermented cassava", "Water"],
-    image:
-      "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/vwebp/736x/b1/a4/07/b1a4073f8761397dd9a3180b305b3bfa.webp",
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -225,8 +222,7 @@ export const MENU: MenuItem[] = [
     description:
       "A medium cut of turkey, perfectly seasoned and fried to a delicious golden brown.",
     ingredients: ["Turkey", "Onions", "Garlic", "Ginger", "Curry", "Thyme", "Vegetable oil"],
-    image:
-      "https://images.unsplash.com/photo-1516685018646-549198525c1b?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/1200x/72/a0/e1/72a0e1e694a1d68c7a1cfe4e1263886d.jpg",
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -265,8 +261,7 @@ export const MENU: MenuItem[] = [
     description:
       "A fresh, crunchy mix of shredded cabbage and carrots tossed in a rich, creamy mayonnaise dressing.",
     ingredients: ["Cabbage", "Carrots", "Mayonnaise", "Sugar", "Vinegar"],
-    image:
-      "https://images.unsplash.com/photo-1625938146369-adc83368bda7?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/vwebp/1200x/7c/ce/c2/7ccec2a35343f29a98714ce91d2ff01a.webp",
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -286,8 +281,7 @@ export const MENU: MenuItem[] = [
       "Onions",
       "Spices",
     ],
-    image:
-      "https://images.unsplash.com/photo-1608039829572-78524f79c4c7?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/vwebp/1200x/32/73/21/32732134fee2f05905366757ca0bd46c.webp",
     pairsWith: ["coke-pet", "fanta-pet", "sprite-pet"],
   },
   {
@@ -338,8 +332,7 @@ export const MENU: MenuItem[] = [
       "Citric acid",
       "Natural orange flavors",
     ],
-    image:
-      "https://images.unsplash.com/photo-1624517452488-04869289c4ca?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/1200x/c5/aa/f4/c5aaf4af8bd893c135b7a68ba0177d4d.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -357,8 +350,7 @@ export const MENU: MenuItem[] = [
       "Natural lemon and lime flavors",
       "Sodium citrate",
     ],
-    image:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/736x/50/66/27/506627f03926f817a7b4995dcc80cf6e.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -370,8 +362,7 @@ export const MENU: MenuItem[] = [
     description:
       "Pure, clean, and refreshing premium bottled spring water, served ice-cold to keep you hydrated.",
     ingredients: ["Natural spring water"],
-    image:
-      "https://images.unsplash.com/photo-1560023907-5f339617ea30?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/736x/bc/1a/67/bc1a678485b072d2a383f7c598035d14.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "amala", "semo", "eba", "fufu"],
   },
   {
@@ -427,8 +418,7 @@ export const MENU: MenuItem[] = [
       "Natural lemon and lime flavors",
       "Sodium citrate",
     ],
-    image:
-      "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/736x/9b/da/90/9bda90d0af9e402db2fc6ed0ad29f09d.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -448,8 +438,7 @@ export const MENU: MenuItem[] = [
       "Hops",
       "Vitamins",
     ],
-    image:
-      "https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/736x/d1/5f/b2/d15fb299900cc5389e87cabd910f3fc6.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -461,8 +450,7 @@ export const MENU: MenuItem[] = [
     description:
       "A chilled 33cl can of Schweppes, perfect as a refreshing standalone drink or a premium mixer.",
     ingredients: ["Carbonated water", "Sugar", "Citric acid", "Natural flavorings", "Quinine"],
-    image:
-      "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80",
+    image: "https://i.pinimg.com/1200x/cc/fb/b2/ccfbb2964d538316e6d0221ff767d8f3.jpg",
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
 ];

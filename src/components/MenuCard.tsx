@@ -8,7 +8,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
   const { addItem, removeItem, setQuantity, getQuantity } = useCart();
   const qty = getQuantity(item.slug);
   const inCart = qty > 0;
-  const isFavourite = !!(item.tags?.length);
+  const isFavourite = !!item.tags?.length;
 
   function handleAdd(e: React.MouseEvent) {
     e.preventDefault();
@@ -41,7 +41,9 @@ export function MenuCard({ item }: { item: MenuItem }) {
         {isFavourite && (
           <span className="absolute left-3 top-3 z-10 flex items-center gap-1 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-foreground shadow-sm backdrop-blur-sm dark:bg-black/60 dark:text-foreground">
             Favourite
-            <span aria-hidden className="text-sm">🔥</span>
+            <span aria-hidden className="text-sm">
+              🔥
+            </span>
           </span>
         )}
 
@@ -78,7 +80,10 @@ export function MenuCard({ item }: { item: MenuItem }) {
           {inCart ? (
             <div
               className="flex items-center gap-1"
-              onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
             >
               <button
                 type="button"

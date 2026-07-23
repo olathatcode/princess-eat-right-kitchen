@@ -42,7 +42,8 @@ const PAGE_SIZE = 9;
 
 /* ── Order panel ────────────────────────────────────────────────── */
 function OrderPanel() {
-  const { items, itemCount, totalCount, totalPrice, setQuantity, removeItem, clearCart } = useCart();
+  const { items, itemCount, totalCount, totalPrice, setQuantity, removeItem, clearCart } =
+    useCart();
 
   const orderLines = items
     .map(
@@ -108,9 +109,7 @@ function OrderPanel() {
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  {formatNaira(ci.item.priceNaira)}
-                </p>
+                <p className="text-xs text-muted-foreground">{formatNaira(ci.item.priceNaira)}</p>
 
                 <div className="flex items-center justify-between pt-1">
                   {/* stepper */}
@@ -148,7 +147,10 @@ function OrderPanel() {
           {/* summary */}
           <div className="border-t border-border px-5 pt-4 pb-1">
             <div className="flex items-center justify-between text-sm text-muted-foreground">
-              <span>{itemCount} {itemCount !== 1 ? "dishes" : "dish"} · {totalCount} {totalCount !== 1 ? "portions" : "portion"}</span>
+              <span>
+                {itemCount} {itemCount !== 1 ? "dishes" : "dish"} · {totalCount}{" "}
+                {totalCount !== 1 ? "portions" : "portion"}
+              </span>
               <span>{formatNaira(totalPrice)}</span>
             </div>
           </div>
@@ -203,7 +205,9 @@ function Pagination({
 
   // build page numbers: always show first, last, current ±1, and ellipsis
   const pages: (number | "…")[] = [];
-  const window = new Set([1, totalPages, page, page - 1, page + 1].filter((p) => p >= 1 && p <= totalPages));
+  const window = new Set(
+    [1, totalPages, page, page - 1, page + 1].filter((p) => p >= 1 && p <= totalPages),
+  );
   let prev = 0;
   for (const p of Array.from(window).sort((a, b) => a - b)) {
     if (p - prev > 1) pages.push("…");
@@ -268,9 +272,7 @@ function MenuIndex() {
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter(
-        (m) =>
-          m.name.toLowerCase().includes(q) ||
-          m.shortDescription.toLowerCase().includes(q),
+        (m) => m.name.toLowerCase().includes(q) || m.shortDescription.toLowerCase().includes(q),
       );
     }
     return list;
@@ -346,7 +348,10 @@ function MenuIndex() {
                 </p>
                 <button
                   type="button"
-                  onClick={() => { handleCategoryChange("All"); handleSearch(""); }}
+                  onClick={() => {
+                    handleCategoryChange("All");
+                    handleSearch("");
+                  }}
                   className="mt-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
                 >
                   Show all dishes
@@ -368,8 +373,7 @@ function MenuIndex() {
                   {Math.min((page - 1) * PAGE_SIZE + 1, filtered.length)}–
                   {Math.min(page * PAGE_SIZE, filtered.length)}
                 </span>{" "}
-                of{" "}
-                <span className="font-semibold text-foreground">{filtered.length}</span>{" "}
+                of <span className="font-semibold text-foreground">{filtered.length}</span>{" "}
                 {filtered.length === 1 ? "dish" : "dishes"}
               </p>
             )}

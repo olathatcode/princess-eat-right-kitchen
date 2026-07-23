@@ -111,7 +111,9 @@ function SpiceIndicator({ level }: { level: 1 | 2 | 3 }) {
     3: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
   };
   return (
-    <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider ${colors[level]}`}>
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider ${colors[level]}`}
+    >
       <Flame className="h-3 w-3" />
       {labels[level]}
     </span>
@@ -149,9 +151,13 @@ function MenuDetail() {
       <main className="mx-auto max-w-6xl px-4 pb-20 pt-5 sm:pt-8 animate-fade-in">
         {/* ── Breadcrumb ── */}
         <nav className="mb-8 flex items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted-foreground animate-fade-in-up">
-          <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
+          <Link to="/" className="hover:text-foreground transition-colors">
+            Home
+          </Link>
           <span>/</span>
-          <Link to="/menu" className="hover:text-foreground transition-colors">Menu</Link>
+          <Link to="/menu" className="hover:text-foreground transition-colors">
+            Menu
+          </Link>
           <span>/</span>
           <span className="text-foreground">{item.name}</span>
         </nav>

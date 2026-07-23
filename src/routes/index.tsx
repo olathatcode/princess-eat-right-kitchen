@@ -1,10 +1,92 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShoppingCart, Clock, Star, CheckCircle2, Truck, CalendarCheck, ChefHat, Quote } from "lucide-react";
+// import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ShoppingCart,
+  Clock,
+  Star,
+  CheckCircle2,
+  Truck,
+  CalendarCheck,
+  Quote,
+  ChefHat,
+} from "lucide-react";
 import { useState, useEffect } from "react";
 import { MENU } from "@/data/menu";
 import { SiteHeader, SiteFooter } from "@/components/SiteHeader";
 import { useCart } from "@/context/CartContext";
 import { formatNaira, optimizeImageUrl } from "@/lib/utils";
+
+/* ─── Announcement marquee strip ──────────────────────────────────────── */
+const MARQUEE_ITEMS = [
+  "🍛 Fresh Jollof Rice daily",
+  "🥘 Egusi · Efo Riro · Gbegiri",
+  "🍗 Peppered Goat Meat & Chicken",
+  "🚚 Home delivery available",
+  "📞 Call to order: +234 903 910 8517",
+  "⏰ Open Mon–Sat 8am–9pm · Sun 10am–6pm",
+  "🌶️ Authentic Ijebu Ode flavours",
+  "🫙 Amala · Eba · Pounded Yam",
+];
+
+function AnnouncementMarquee() {
+  // Duplicate items so the loop is seamless
+  const items = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  return (
+    <div className="overflow-hidden border-b border-primary/20 bg-primary/10 py-2.5">
+      <div className="flex animate-marquee whitespace-nowrap">
+        {items.map((text, i) => (
+          <span
+            key={i}
+            className="mx-8 text-xs font-semibold uppercase tracking-widest text-primary"
+          >
+            {text}
+            <span className="mx-8 text-primary/40">✦</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Mid-page divider marquee ─────────────────────────────────────────── */
+const DIVIDER_ITEMS = [
+  "Princess Eat Right Kitchen",
+  "Home-style Nigerian Cooking",
+  "Ijebu Ode · Ogun State",
+  "Fresh Every Day",
+  "Dine In · Pickup · Delivery",
+];
+
+function DividerMarquee() {
+  const items = [...DIVIDER_ITEMS, ...DIVIDER_ITEMS, ...DIVIDER_ITEMS];
+  return (
+    <div className="overflow-hidden bg-primary py-3">
+      <div className="flex animate-marquee whitespace-nowrap" style={{ animationDuration: "20s" }}>
+        {items.map((text, i) => (
+          <span
+            key={i}
+            className="mx-6 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground"
+          >
+            {text}
+            <span className="mx-6 opacity-60">★</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─── Floating food emoji particles ───────────────────────────────────── */
+const FLOAT_PARTICLES = [
+  { emoji: "🍛", top: "12%", left: "6%", delay: 0, size: "text-2xl", dur: "7s" },
+  { emoji: "🌶️", top: "25%", left: "88%", delay: 1.5, size: "text-xl", dur: "6s" },
+  { emoji: "🥘", top: "65%", left: "5%", delay: 2, size: "text-lg", dur: "8s" },
+  { emoji: "🍗", top: "75%", left: "90%", delay: 0.5, size: "text-2xl", dur: "7s" },
+  { emoji: "🫙", top: "45%", left: "92%", delay: 3, size: "text-lg", dur: "9s" },
+  { emoji: "✨", top: "18%", left: "82%", delay: 1, size: "text-sm", dur: "5s" },
+  { emoji: "🍃", top: "82%", left: "15%", delay: 2.5, size: "text-sm", dur: "6s" },
+  { emoji: "🔥", top: "35%", left: "3%", delay: 3.5, size: "text-lg", dur: "7s" },
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -18,7 +100,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Princess Eat Right Kitchen — Ijebu Ode" },
       {
         property: "og:description",
-        content: "Home-style Nigerian cooking, made fresh daily. Dine-in, pickup, and delivery in Ijebu Ode.",
+        content:
+          "Home-style Nigerian cooking, made fresh daily. Dine-in, pickup, and delivery in Ijebu Ode.",
       },
       { property: "og:url", content: "/" },
     ],
@@ -139,13 +222,9 @@ function TestimonialsCarousel() {
   return (
     <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
       <div className="mb-10 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
-          Reviews
-        </p>
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Reviews</p>
         <h2 className="mt-2 font-display text-3xl text-foreground sm:text-4xl">
-          What are our{" "}
-          <span className="text-primary">Customers</span>{" "}
-          say about us
+          What are our <span className="text-primary">Customers</span> say about us
         </h2>
       </div>
 
@@ -156,10 +235,7 @@ function TestimonialsCarousel() {
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
         >
           {REVIEWS.map((r) => (
-            <div
-              key={r.name}
-              className="w-full shrink-0 px-4"
-            >
+            <div key={r.name} className="w-full shrink-0 px-4">
               <div className="mx-auto max-w-2xl relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-8 shadow-lg">
                 <Quote className="absolute right-5 top-5 h-10 w-10 text-primary/10" />
                 {/* stars */}
@@ -195,9 +271,7 @@ function TestimonialsCarousel() {
             onClick={() => setActiveIndex(i)}
             className={
               "h-2 rounded-full transition-all duration-300 " +
-              (i === activeIndex
-                ? "w-8 bg-primary"
-                : "w-2 bg-border hover:bg-primary/50")
+              (i === activeIndex ? "w-8 bg-primary" : "w-2 bg-border hover:bg-primary/50")
             }
             aria-label={`Go to testimonial ${i + 1}`}
           />
@@ -226,6 +300,7 @@ function Home() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
+      <AnnouncementMarquee />
 
       <main>
         {/* ══════════════════════════════════════════════════════════════
@@ -235,6 +310,23 @@ function Home() {
           {/* background blob */}
           <div className="pointer-events-none absolute -right-40 -top-40 h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl" />
           <div className="pointer-events-none absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-primary/5 blur-2xl" />
+
+          {/* floating emoji particles */}
+          {FLOAT_PARTICLES.map((p, i) => (
+            <span
+              key={i}
+              className={`pointer-events-none absolute select-none opacity-20 ${p.size} animate-float`}
+              style={{
+                top: p.top,
+                left: p.left,
+                animationDuration: p.dur,
+                animationDelay: `${p.delay}s`,
+              }}
+              aria-hidden="true"
+            >
+              {p.emoji}
+            </span>
+          ))}
 
           <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:py-20 lg:grid-cols-2 lg:py-24">
             {/* ── Left: text ── */}
@@ -248,8 +340,8 @@ function Home() {
                 <span className="text-primary">and Enjoy The Food</span>
               </h1>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Home-style Nigerian cooking made fresh every day in our Esepa kitchen — Jollof
-                Rice, Amala, Egusi, Efo Riro, and more. Dine in, pick up, or order delivery.
+                Home-style Nigerian cooking made fresh every day in our Esepa kitchen — Jollof Rice,
+                Amala, Egusi, Efo Riro, and more. Dine in, pick up, or order delivery.
               </p>
 
               {/* CTA buttons */}
@@ -395,12 +487,19 @@ function Home() {
         </section>
 
         {/* ══════════════════════════════════════════════════════════════
+            §2.5  DIVIDER MARQUEE
+        ══════════════════════════════════════════════════════════════ */}
+        <DividerMarquee />
+
+        {/* ══════════════════════════════════════════════════════════════
             §3  BEST SERVICE STRIP
         ══════════════════════════════════════════════════════════════ */}
         <section className="relative overflow-hidden bg-secondary/40">
-          <div className="pointer-events-none absolute inset-0 opacity-[0.03]"
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.03]"
             style={{
-              backgroundImage: "repeating-linear-gradient(45deg,currentColor 0,currentColor 1px,transparent 0,transparent 50%)",
+              backgroundImage:
+                "repeating-linear-gradient(45deg,currentColor 0,currentColor 1px,transparent 0,transparent 50%)",
               backgroundSize: "12px 12px",
             }}
           />
@@ -409,7 +508,7 @@ function Home() {
             <div className="relative flex justify-center animate-fade-in-up">
               <div className="relative h-72 w-72 overflow-hidden rounded-full border-4 border-white/50 shadow-2xl dark:border-white/10 sm:h-80 sm:w-80">
                 <img
-                  src={optimizeImageUrl(MENU.find(m => m.slug === "egusi")!.image, 640, 80)}
+                  src={optimizeImageUrl(MENU.find((m) => m.slug === "egusi")!.image, 640, 80)}
                   alt="Egusi Soup"
                   width={640}
                   height={640}
@@ -429,20 +528,35 @@ function Home() {
                 Why choose us
               </p>
               <h2 className="mt-3 font-display text-3xl text-foreground sm:text-4xl">
-                We Provide Best Service{" "}
-                <span className="text-primary">for Our Customer</span>
+                We Provide Best Service <span className="text-primary">for Our Customer</span>
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                Every dish is cooked with love, fresh ingredients, and the authentic recipes
-                that have made Princess Eat Right Kitchen a favourite in Ijebu Ode.
+                Every dish is cooked with love, fresh ingredients, and the authentic recipes that
+                have made Princess Eat Right Kitchen a favourite in Ijebu Ode.
               </p>
 
               <ul className="mt-6 flex flex-col gap-4">
                 {[
-                  { icon: <CheckCircle2 className="h-5 w-5 text-primary" />, title: "Best Quality", desc: "Fresh ingredients sourced daily from local markets." },
-                  { icon: <Truck className="h-5 w-5 text-primary" />, title: "Home Delivery", desc: "Hot food delivered straight to your door." },
-                  { icon: <CalendarCheck className="h-5 w-5 text-primary" />, title: "Pre Booking", desc: "Reserve ahead for events, parties, and offices." },
-                  { icon: <ShoppingCart className="h-5 w-5 text-primary" />, title: "Easy to Order", desc: "Add to your food list and send us a WhatsApp message." },
+                  {
+                    icon: <CheckCircle2 className="h-5 w-5 text-primary" />,
+                    title: "Best Quality",
+                    desc: "Fresh ingredients sourced daily from local markets.",
+                  },
+                  {
+                    icon: <Truck className="h-5 w-5 text-primary" />,
+                    title: "Home Delivery",
+                    desc: "Hot food delivered straight to your door.",
+                  },
+                  {
+                    icon: <CalendarCheck className="h-5 w-5 text-primary" />,
+                    title: "Pre Booking",
+                    desc: "Reserve ahead for events, parties, and offices.",
+                  },
+                  {
+                    icon: <ShoppingCart className="h-5 w-5 text-primary" />,
+                    title: "Easy to Order",
+                    desc: "Add to your food list and send us a WhatsApp message.",
+                  },
                 ].map((f) => (
                   <li key={f.title} className="flex items-start gap-3">
                     <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
@@ -475,12 +589,11 @@ function Home() {
               Order Today
             </p>
             <h2 className="mt-3 font-display text-3xl text-foreground sm:text-4xl">
-              Are You Ready to Enjoy{" "}
-              <span className="text-primary">Our Food?</span>
+              Are You Ready to Enjoy <span className="text-primary">Our Food?</span>
             </h2>
             <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-              Fresh, home-style Nigerian dishes cooked daily in Ijebu Ode. Reserve your table,
-              order online, or call us — we're ready for you.
+              Fresh, home-style Nigerian dishes cooked daily in Ijebu Ode. Reserve your table, order
+              online, or call us — we're ready for you.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <a
@@ -506,8 +619,14 @@ function Home() {
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-6 px-4 py-5 sm:justify-between">
             {[
               { icon: <Star className="h-4 w-4 text-primary" />, text: "4.4 / 5 on Google" },
-              { icon: <Clock className="h-4 w-4 text-primary" />, text: "Open daily · Closes 9:30 pm" },
-              { icon: <Truck className="h-4 w-4 text-primary" />, text: "Dine-in · Pickup · Delivery" },
+              {
+                icon: <Clock className="h-4 w-4 text-primary" />,
+                text: "Open daily · Closes 9:30 pm",
+              },
+              {
+                icon: <Truck className="h-4 w-4 text-primary" />,
+                text: "Dine-in · Pickup · Delivery",
+              },
             ].map((b) => (
               <div key={b.text} className="flex items-center gap-2 text-sm text-foreground/70">
                 {b.icon}
