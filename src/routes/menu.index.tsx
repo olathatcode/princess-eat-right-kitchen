@@ -46,10 +46,12 @@ function OrderPanel() {
     useCart();
 
   const orderLines = items
-    .map(
-      (ci) =>
-        `• ${ci.quantity}× ${ci.item.name} — ${formatNaira(ci.item.priceNaira * ci.quantity)}`,
-    )
+    .map((ci) => {
+      const unit = ci.item.pricePerSpoon
+        ? `${ci.quantity} ${ci.quantity === 1 ? "spoon" : "spoons"}`
+        : `${ci.quantity} ${ci.quantity === 1 ? "portion" : "portions"}`;
+      return `• ${ci.item.name} — ${unit} × ${formatNaira(ci.item.priceNaira)} = ${formatNaira(ci.item.priceNaira * ci.quantity)}`;
+    })
     .join("\n");
 
   const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
@@ -109,28 +111,31 @@ function OrderPanel() {
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 </div>
-                <p className="text-xs text-muted-foreground">{formatNaira(ci.item.priceNaira)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {formatNaira(ci.item.priceNaira)}{" "}
+                  {ci.item.pricePerSpoon ? "/ spoon" : "/ portion"}
+                </p>
 
                 <div className="flex items-center justify-between pt-1">
-                  {/* stepper */}
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
-                      aria-label="Decrease"
+                      aria-label={ci.item.pricePerSpoon ? "Remove a spoon" : "Decrease"}
                       onClick={() => setQuantity(ci.item.slug, ci.quantity - 1)}
                       disabled={ci.quantity <= 1}
                       className="flex h-7 w-7 items-center justify-center rounded-md border border-border text-foreground/60 transition hover:border-primary hover:text-primary disabled:opacity-40"
                     >
                       <Minus className="h-3 w-3" />
                     </button>
-                    <span className="w-7 text-center text-sm font-bold text-foreground">
+                    <span className="flex min-w-[2.5rem] items-center justify-center gap-0.5 text-sm font-bold text-foreground">
+                      {ci.item.pricePerSpoon ? "🥄" : ""}
                       {ci.quantity}
                     </span>
                     <button
                       type="button"
-                      aria-label="Increase"
+                      aria-label={ci.item.pricePerSpoon ? "Add a spoon" : "Increase"}
                       onClick={() => setQuantity(ci.item.slug, ci.quantity + 1)}
-                      disabled={ci.quantity >= 20}
+                      disabled={ci.quantity >= 100}
                       className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground transition hover:bg-primary/90 disabled:opacity-40"
                     >
                       <Plus className="h-3 w-3" />
@@ -149,7 +154,7 @@ function OrderPanel() {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>
                 {itemCount} {itemCount !== 1 ? "dishes" : "dish"} · {totalCount}{" "}
-                {totalCount !== 1 ? "portions" : "portion"}
+                {totalCount !== 1 ? "items" : "item"}
               </span>
               <span>{formatNaira(totalPrice)}</span>
             </div>

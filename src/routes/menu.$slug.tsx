@@ -123,6 +123,7 @@ function SpiceIndicator({ level }: { level: 1 | 2 | 3 }) {
 function MenuDetail() {
   const { item } = Route.useLoaderData() as { item: (typeof MENU)[number] };
   const { addItem, setQuantity: setCartQty, getQuantity, removeItem } = useCart();
+  const isSpoon = !!item.pricePerSpoon;
   const [localQty, setLocalQty] = useState(1);
   const cartQty = getQuantity(item.slug);
   const inCart = cartQty > 0;
@@ -132,15 +133,18 @@ function MenuDetail() {
     .filter((m): m is (typeof MENU)[number] => Boolean(m));
 
   const totalPrice = item.priceNaira * localQty;
+  const unit = isSpoon
+    ? `${localQty} ${localQty === 1 ? "spoon" : "spoons"}`
+    : `${localQty} ${localQty === 1 ? "portion" : "portions"}`;
   const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
-    `Hello Princess Eat Right Kitchen, I would like to order ${localQty} portion(s) of ${item.name} (Total: ${formatNaira(totalPrice)}).`,
+    `Hello Princess Eat Right Kitchen, I would like to order ${unit} of ${item.name} (Total: ${formatNaira(totalPrice)}).`,
   )}`;
 
   function handleAddToCart() {
     if (inCart) {
       setCartQty(item.slug, cartQty + localQty);
     } else {
-      for (let i = 0; i < localQty; i++) addItem(item);
+      addItem(item, localQty);
     }
   }
 
@@ -216,7 +220,9 @@ function MenuDetail() {
             </h1>
             <p className="mt-3 font-display text-3xl font-semibold text-primary">
               {formatNaira(item.priceNaira)}
-              <span className="ml-2 text-base font-normal text-muted-foreground">/ portion</span>
+              <span className="ml-2 text-base font-normal text-muted-foreground">
+                {isSpoon ? "/ spoon" : "/ portion"}
+              </span>
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               {item.shortDescription}
@@ -225,7 +231,7 @@ function MenuDetail() {
             {/* ── Sticky order card ── */}
             <div className="mt-8 rounded-2xl border border-border bg-card p-5 shadow-sm">
               <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                How many portions?
+                {isSpoon ? "How many spoons?" : "How many portions?"}
               </p>
 
               {/* qty stepper */}
@@ -233,21 +239,22 @@ function MenuDetail() {
                 <div className="flex items-center rounded-full border border-border bg-background">
                   <button
                     type="button"
-                    aria-label="Decrease quantity"
+                    aria-label={isSpoon ? "Decrease spoons" : "Decrease portions"}
                     onClick={() => setLocalQty((q) => Math.max(1, q - 1))}
                     disabled={localQty <= 1}
                     className="flex h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition hover:bg-muted hover:text-foreground disabled:opacity-40"
                   >
                     <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-10 text-center text-base font-bold text-foreground">
+                  <span className="flex min-w-[3rem] items-center justify-center gap-0.5 text-base font-bold text-foreground">
+                    {isSpoon ? "🥄" : ""}
                     {localQty}
                   </span>
                   <button
                     type="button"
-                    aria-label="Increase quantity"
-                    onClick={() => setLocalQty((q) => Math.min(20, q + 1))}
-                    disabled={localQty >= 20}
+                    aria-label={isSpoon ? "Increase spoons" : "Increase portions"}
+                    onClick={() => setLocalQty((q) => Math.min(100, q + 1))}
+                    disabled={localQty >= 100}
                     className="flex h-10 w-10 items-center justify-center rounded-full text-foreground/70 transition hover:bg-muted hover:text-foreground disabled:opacity-40"
                   >
                     <Plus className="h-4 w-4" />
@@ -261,14 +268,13 @@ function MenuDetail() {
 
               {/* action buttons */}
               <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                {/* Add to food list */}
                 <button
                   type="button"
                   onClick={handleAddToCart}
                   className="flex flex-1 items-center justify-center gap-2 rounded-full bg-primary py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md active:scale-95"
                 >
                   <ShoppingCart className="h-4 w-4" />
-                  {inCart ? `Add ${localQty} more to list` : `Add ${localQty} to food list`}
+                  {inCart ? `Add ${localQty} more` : `Add ${unit} to list`}
                 </button>
 
                 {/* WhatsApp direct */}
@@ -301,14 +307,23 @@ function MenuDetail() {
 
               {/* in-cart indicator */}
               {inCart && (
-                <div className="mt-4 flex items-center justify-between rounded-xl bg-primary/5 border border-primary/20 px-4 py-2.5">
-                  <span className="text-sm text-primary font-medium">
-                    {cartQty} in your food list
+                <div className="mt-4 flex items-center justify-between rounded-xl border border-primary/20 bg-primary/5 px-4 py-2.5">
+                  <span className="text-sm font-medium text-primary">
+                    {isSpoon ? "🥄 " : ""}
+                    {cartQty}{" "}
+                    {isSpoon
+                      ? cartQty === 1
+                        ? "spoon"
+                        : "spoons"
+                      : cartQty === 1
+                        ? "portion"
+                        : "portions"}{" "}
+                    in your food list
                   </span>
                   <button
                     type="button"
                     onClick={() => removeItem(item.slug)}
-                    className="text-xs text-muted-foreground underline-offset-2 hover:text-destructive hover:underline transition"
+                    className="text-xs text-muted-foreground underline-offset-2 transition hover:text-destructive hover:underline"
                   >
                     Remove
                   </button>

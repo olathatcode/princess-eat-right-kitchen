@@ -34,8 +34,9 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
   const router = useRouter();
+  // Only log in development so the console stays clean in production
+  if (import.meta.env.DEV) console.error("[ErrorBoundary]", error);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -79,6 +80,9 @@ function RootComponent() {
   const state = useRouterState();
   const [isNavigating, setIsNavigating] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  // Track whether the component has mounted so the route-change effect
+  // doesn't fire a preloader flash on the very first render
+  const [mounted, setMounted] = useState(false);
 
   // Initialize theme
   useEffect(() => {
@@ -100,15 +104,16 @@ function RootComponent() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Trigger route-change preloader
+  // Trigger route-change preloader (skip on initial mount)
   useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+      return;
+    }
     setIsNavigating(true);
-    const timer = setTimeout(() => {
-      setIsNavigating(false);
-    }, 1200);
-
+    const timer = setTimeout(() => setIsNavigating(false), 1200);
     return () => clearTimeout(timer);
-  }, [state.location.pathname]);
+  }, [state.location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <QueryClientProvider client={queryClient}>

@@ -32,13 +32,15 @@ export function CartDrawer({ open, onClose }: Props) {
     };
   }, [open]);
 
-  // WhatsApp message
   const orderLines = items
-    .map(
-      (ci) =>
-        `• ${ci.quantity}× ${ci.item.name} — ${formatNaira(ci.item.priceNaira * ci.quantity)}`,
-    )
+    .map((ci) => {
+      const unit = ci.item.pricePerSpoon
+        ? `${ci.quantity} ${ci.quantity === 1 ? "spoon" : "spoons"}`
+        : `${ci.quantity} ${ci.quantity === 1 ? "portion" : "portions"}`;
+      return `• ${ci.item.name} — ${unit} × ${formatNaira(ci.item.priceNaira)} = ${formatNaira(ci.item.priceNaira * ci.quantity)}`;
+    })
     .join("\n");
+
   const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
     `Hello Princess Eat Right Kitchen 👋\n\nI'd like to place this order:\n\n${orderLines}\n\n*Total: ${formatNaira(totalPrice)}*\n\nPlease confirm availability. Thank you!`,
   )}`;
@@ -51,7 +53,7 @@ export function CartDrawer({ open, onClose }: Props) {
         onClick={onClose}
         className={
           "fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity duration-300 " +
-          (open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")
+          (open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0")
         }
       />
 
@@ -110,7 +112,7 @@ export function CartDrawer({ open, onClose }: Props) {
               <Link
                 to="/menu"
                 onClick={onClose}
-                className="flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 hover:scale-105"
+                className="flex items-center gap-2 rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:scale-105 hover:bg-primary/90"
               >
                 Browse menu
                 <ArrowRight className="h-3.5 w-3.5" />
@@ -135,45 +137,48 @@ export function CartDrawer({ open, onClose }: Props) {
                   </div>
 
                   {/* Details */}
-                  <div className="flex flex-1 flex-col gap-1 min-w-0">
+                  <div className="flex min-w-0 flex-1 flex-col gap-1">
                     <div className="flex items-start justify-between gap-2">
-                      <span className="truncate text-sm font-semibold text-foreground leading-snug">
+                      <span className="truncate text-sm font-semibold leading-snug text-foreground">
                         {ci.item.name}
                       </span>
                       <button
                         type="button"
                         aria-label={`Remove ${ci.item.name}`}
                         onClick={() => removeItem(ci.item.slug)}
-                        className="shrink-0 flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-muted-foreground transition hover:bg-destructive/10 hover:text-destructive"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </button>
                     </div>
 
+                    {/* price label — per spoon for rice, per portion otherwise */}
                     <p className="text-[11px] text-muted-foreground">
-                      {formatNaira(ci.item.priceNaira)} each
+                      {formatNaira(ci.item.priceNaira)}{" "}
+                      {ci.item.pricePerSpoon ? "/ spoon" : "/ portion"}
                     </p>
 
                     <div className="mt-1 flex items-center justify-between">
-                      {/* Stepper */}
+                      {/* Spoon stepper */}
                       <div className="flex items-center rounded-full border border-border bg-background">
                         <button
                           type="button"
-                          aria-label="Decrease"
+                          aria-label="Remove a spoon"
                           onClick={() => setQuantity(ci.item.slug, ci.quantity - 1)}
                           disabled={ci.quantity <= 1}
                           className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/60 transition hover:bg-muted hover:text-foreground disabled:opacity-40"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
-                        <span className="w-6 text-center text-sm font-bold text-foreground">
+                        <span className="flex min-w-[2.5rem] items-center justify-center gap-0.5 text-sm font-bold text-foreground">
+                          {ci.item.pricePerSpoon ? "🥄 " : ""}
                           {ci.quantity}
                         </span>
                         <button
                           type="button"
-                          aria-label="Increase"
+                          aria-label="Add a spoon"
                           onClick={() => setQuantity(ci.item.slug, ci.quantity + 1)}
-                          disabled={ci.quantity >= 20}
+                          disabled={ci.quantity >= 100}
                           className="flex h-7 w-7 items-center justify-center rounded-full text-foreground/60 transition hover:bg-muted hover:text-foreground disabled:opacity-40"
                         >
                           <Plus className="h-3 w-3" />
@@ -200,7 +205,7 @@ export function CartDrawer({ open, onClose }: Props) {
               <div className="flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">
                   {itemCount} {itemCount === 1 ? "dish" : "dishes"} · {totalCount}{" "}
-                  {totalCount === 1 ? "portion" : "portions"}
+                  {totalCount === 1 ? "item" : "items"}
                 </span>
                 <span className="font-display text-xl font-semibold text-foreground">
                   {formatNaira(totalPrice)}
@@ -231,7 +236,7 @@ export function CartDrawer({ open, onClose }: Props) {
               Send order on WhatsApp
             </a>
 
-            {/* Secondary actions row */}
+            {/* Secondary actions */}
             <div className="mt-3 flex items-center justify-between">
               <Link
                 to="/menu"

@@ -18,6 +18,8 @@ export type MenuItem = {
   pairsWith?: string[];
   spiceLevel?: 1 | 2 | 3;
   tags?: string[];
+  /** If true, price is per spoon — customer picks how many spoons they want */
+  pricePerSpoon?: true;
 };
 
 export const CATEGORIES: MenuCategory[] = ["Rice", "Swallow & Soup", "Protein", "Snacks", "Drinks"];
@@ -46,6 +48,7 @@ export const MENU: MenuItem[] = [
     pairsWith: ["chicken", "turkey-big", "beef", "coleslaw", "moimoi"],
     spiceLevel: 2,
     tags: ["Bestseller"],
+    pricePerSpoon: true,
   },
   {
     slug: "fried-rice",
@@ -69,6 +72,7 @@ export const MENU: MenuItem[] = [
       "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
     pairsWith: ["chicken", "turkey-big", "beef", "coleslaw", "moimoi"],
     spiceLevel: 1,
+    pricePerSpoon: true,
   },
   // Swallow & Soup
   {

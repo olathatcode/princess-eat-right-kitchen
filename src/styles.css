@@ -343,3 +343,22 @@ h3 {
 .animate-loading-bar {
   animation: loadingBar 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
+
+/* ── Liquid glass navbar ────────────────────────────────────────── */
+.liquid-glass-nav {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(180%) brightness(1.05);
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dark .liquid-glass-nav {
+  background: rgba(10, 10, 10, 0.35);
+  box-shadow:
+    0 4px 32px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+}

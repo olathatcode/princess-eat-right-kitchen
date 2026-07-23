@@ -5,6 +5,10 @@ import type { MenuItem } from "@/data/menu";
 
 export type CartItem = {
   item: MenuItem;
+  /**
+   * For rice items (pricePerSpoon): number of spoons.
+   * For all other items: number of portions.
+   */
   quantity: number;
 };
 
@@ -13,19 +17,19 @@ type CartState = {
 };
 
 type CartAction =
-  | { type: "ADD"; item: MenuItem }
+  | { type: "ADD"; item: MenuItem; quantity: number }
   | { type: "REMOVE"; slug: string }
   | { type: "SET_QTY"; slug: string; quantity: number }
   | { type: "CLEAR" };
 
 type CartContextValue = {
   items: CartItem[];
-  /** Number of distinct dish types in the cart — used for nav badge */
+  /** Number of distinct dish types in the cart */
   itemCount: number;
-  /** Total number of portions across all items — used for order summaries */
+  /** Total quantity across all items (spoons + portions combined) */
   totalCount: number;
   totalPrice: number;
-  addItem: (item: MenuItem) => void;
+  addItem: (item: MenuItem, quantity: number) => void;
   removeItem: (slug: string) => void;
   setQuantity: (slug: string, quantity: number) => void;
   clearCart: () => void;
@@ -33,6 +37,8 @@ type CartContextValue = {
 };
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
+
+const MAX_QTY = 100;
 
 function cartReducer(state: CartState, action: CartAction): CartState {
   switch (action.type) {
@@ -42,12 +48,17 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         return {
           items: state.items.map((ci) =>
             ci.item.slug === action.item.slug
-              ? { ...ci, quantity: Math.min(ci.quantity + 1, 20) }
+              ? { ...ci, quantity: Math.min(ci.quantity + action.quantity, MAX_QTY) }
               : ci,
           ),
         };
       }
-      return { items: [...state.items, { item: action.item, quantity: 1 }] };
+      return {
+        items: [
+          ...state.items,
+          { item: action.item, quantity: Math.min(action.quantity, MAX_QTY) },
+        ],
+      };
     }
     case "REMOVE":
       return { items: state.items.filter((ci) => ci.item.slug !== action.slug) };
@@ -57,7 +68,9 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         items: state.items.map((ci) =>
-          ci.item.slug === action.slug ? { ...ci, quantity: Math.min(action.quantity, 20) } : ci,
+          ci.item.slug === action.slug
+            ? { ...ci, quantity: Math.min(action.quantity, MAX_QTY) }
+            : ci,
         ),
       };
     }
@@ -79,7 +92,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const totalCount = state.items.reduce((sum, ci) => sum + ci.quantity, 0);
   const totalPrice = state.items.reduce((sum, ci) => sum + ci.item.priceNaira * ci.quantity, 0);
 
-  const addItem = (item: MenuItem) => dispatch({ type: "ADD", item });
+  const addItem = (item: MenuItem, quantity: number) => dispatch({ type: "ADD", item, quantity });
   const removeItem = (slug: string) => dispatch({ type: "REMOVE", slug });
   const setQuantity = (slug: string, quantity: number) =>
     dispatch({ type: "SET_QTY", slug, quantity });

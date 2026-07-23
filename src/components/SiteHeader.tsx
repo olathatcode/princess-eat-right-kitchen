@@ -54,10 +54,10 @@ export function SiteHeader() {
       {/* ── Main header ── */}
       <header
         className={
-          "sticky top-0 z-40 transition-all duration-300 " +
+          "sticky top-0 z-40 transition-all duration-500 " +
           (scrolled
-            ? "border-b border-border/80 bg-background/90 shadow-sm backdrop-blur-md"
-            : "border-b border-border/50 bg-background/80 backdrop-blur-sm")
+            ? "liquid-glass-nav border-b border-white/10 shadow-lg shadow-black/10"
+            : "border-b border-transparent bg-transparent")
         }
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:py-3">

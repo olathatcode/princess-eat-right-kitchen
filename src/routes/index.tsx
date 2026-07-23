@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-// import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ShoppingCart,
   Clock,
@@ -9,6 +8,9 @@ import {
   CalendarCheck,
   Quote,
   ChefHat,
+  Minus,
+  Plus,
+  X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { MENU } from "@/data/menu";
@@ -137,11 +139,29 @@ export const Route = createFileRoute("/")({
 
 /* ─── Dish card used in the Popular Dishes row ────────────────────────── */
 function DishCard({ item }: { item: (typeof MENU)[number] }) {
-  const { addItem, getQuantity } = useCart();
+  const { addItem, removeItem, setQuantity, getQuantity } = useCart();
   const qty = getQuantity(item.slug);
+  const inCart = qty > 0;
+  const isSpoon = !!item.pricePerSpoon;
+  const [picking, setPicking] = useState(false);
+  const [pendingQty, setPendingQty] = useState(1);
+
+  function openPicker(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    setPendingQty(qty > 0 ? qty : 1);
+    setPicking(true);
+  }
+
+  function confirmAdd(e: React.MouseEvent) {
+    e.preventDefault();
+    e.stopPropagation();
+    addItem(item, pendingQty);
+    setPicking(false);
+  }
 
   return (
-    <div className="group flex w-52 shrink-0 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-89">
+    <div className="group relative flex w-52 shrink-0 flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-full">
       {/* image */}
       <div className="relative aspect-square overflow-hidden bg-muted">
         <img
@@ -153,34 +173,169 @@ function DishCard({ item }: { item: (typeof MENU)[number] }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {/* star rating pill */}
-        <span className="absolute top-2 right-2 flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold text-amber-500 shadow-sm backdrop-blur-sm dark:bg-black/60">
+        <span className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold text-amber-500 shadow-sm backdrop-blur-sm dark:bg-black/60">
           <Star className="h-3 w-3 fill-amber-400 text-amber-400" />
           4.4
         </span>
+        {/* spoon/qty badge */}
+        {inCart && (
+          <span className="absolute left-2 top-2 flex items-center gap-0.5 rounded-full bg-primary px-2 py-0.5 text-[10px] font-bold text-primary-foreground shadow">
+            {isSpoon ? "🥄" : "×"} {qty}
+          </span>
+        )}
       </div>
 
       {/* body */}
       <div className="flex flex-1 flex-col gap-1 p-4">
-        <h3 className="truncate font-display text-base font-semibold text-foreground group-hover:text-primary transition-colors">
+        <h3 className="truncate font-display text-base font-semibold text-foreground transition-colors group-hover:text-primary">
           {item.name}
         </h3>
-        <p className="line-clamp-2 text-xs text-muted-foreground leading-relaxed">
+        <p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground">
           {item.shortDescription}
         </p>
-        <div className="mt-auto flex items-center justify-between pt-3 border-t border-border/60">
-          <span className="font-display text-base font-bold text-primary">
-            {formatNaira(item.priceNaira)}
-          </span>
-          <button
-            type="button"
-            onClick={() => addItem(item)}
-            className="flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold text-primary-foreground shadow-sm transition hover:bg-primary/90 hover:scale-105 active:scale-95"
-          >
-            <ShoppingCart className="h-3 w-3" />
-            {qty > 0 ? `+1 (${qty})` : "Add to cart"}
-          </button>
+        <div className="mt-auto flex items-center justify-between border-t border-border/60 pt-3">
+          <div className="flex flex-col leading-tight">
+            <span className="font-display text-base font-bold text-primary">
+              {formatNaira(item.priceNaira)}
+            </span>
+            {isSpoon && <span className="text-[10px] text-muted-foreground">per spoon</span>}
+          </div>
+
+          {inCart ? (
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                aria-label={isSpoon ? "Remove a spoon" : "Decrease"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (qty <= 1) removeItem(item.slug);
+                  else setQuantity(item.slug, qty - 1);
+                }}
+                className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-background text-foreground/70 transition hover:border-primary hover:text-primary"
+              >
+                <Minus className="h-3 w-3" />
+              </button>
+              <span className="flex min-w-[2.5rem] items-center justify-center gap-0.5 text-sm font-bold text-foreground">
+                {isSpoon ? "🥄" : ""}
+                {qty}
+              </span>
+              <button
+                type="button"
+                aria-label={isSpoon ? "Add a spoon" : "Increase"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setQuantity(item.slug, qty + 1);
+                }}
+                disabled={qty >= 100}
+                className="flex h-7 w-7 items-center justify-center rounded-md bg-primary text-primary-foreground transition hover:bg-primary/90 disabled:opacity-40"
+              >
+                <Plus className="h-3 w-3" />
+              </button>
+            </div>
+          ) : isSpoon ? (
+            <button
+              type="button"
+              onClick={openPicker}
+              className="flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold text-primary-foreground shadow-sm transition hover:scale-105 hover:bg-primary/90 active:scale-95"
+            >
+              <ShoppingCart className="h-3 w-3" />
+              Add to cart
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                addItem(item, 1);
+              }}
+              className="flex items-center gap-1 rounded-full bg-primary px-3 py-1.5 text-[11px] font-bold text-primary-foreground shadow-sm transition hover:scale-105 hover:bg-primary/90 active:scale-95"
+            >
+              <ShoppingCart className="h-3 w-3" />
+              Add to cart
+            </button>
+          )}
         </div>
       </div>
+
+      {/* ── Spoon picker overlay ── */}
+      {picking && (
+        <div
+          className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-4 rounded-2xl bg-card/97 px-5 backdrop-blur-sm"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+        >
+          <button
+            type="button"
+            aria-label="Cancel"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setPicking(false);
+            }}
+            className="absolute right-3 top-3 flex h-6 w-6 items-center justify-center rounded-full text-muted-foreground transition hover:bg-muted hover:text-foreground"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+
+          <div className="flex flex-col items-center gap-1 text-center">
+            <ChefHat className="h-6 w-6 text-primary" />
+            <p className="font-display text-sm font-semibold text-foreground">How many spoons?</p>
+            <p className="text-[11px] text-muted-foreground">{item.name}</p>
+          </div>
+
+          {/* stepper */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-label="Decrease"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setPendingQty((v) => Math.max(1, v - 1));
+              }}
+              disabled={pendingQty <= 1}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-foreground/70 transition hover:border-primary hover:text-primary disabled:opacity-40"
+            >
+              <Minus className="h-4 w-4" />
+            </button>
+            <div className="flex min-w-[3.5rem] flex-col items-center">
+              <span className="text-2xl font-bold text-foreground">{pendingQty}</span>
+              <span className="text-[10px] text-muted-foreground">
+                {pendingQty === 1 ? "spoon" : "spoons"}
+              </span>
+            </div>
+            <button
+              type="button"
+              aria-label="Increase"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setPendingQty((v) => Math.min(100, v + 1));
+              }}
+              disabled={pendingQty >= 100}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground transition hover:bg-primary/90 disabled:opacity-40"
+            >
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* live price */}
+          <p className="text-sm font-bold text-primary">
+            {formatNaira(item.priceNaira * pendingQty)}
+          </p>
+
+          <button
+            type="button"
+            onClick={confirmAdd}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-primary py-2.5 text-sm font-bold text-primary-foreground transition hover:bg-primary/90 active:scale-95"
+          >
+            <ShoppingCart className="h-4 w-4" />
+            Add to order
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -506,6 +661,8 @@ function Home() {
           <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:py-20 lg:grid-cols-2">
             {/* left: dish image */}
             <div className="relative flex justify-center animate-fade-in-up">
+              {/* outer dashed ring — slow counter-spin */}
+              <div className="absolute h-[320px] w-[320px] rounded-full border-2 border-dashed border-primary/20 sm:h-[360px] sm:w-[360px] animate-spin-slow" />
               <div className="relative h-72 w-72 overflow-hidden rounded-full border-4 border-white/50 shadow-2xl dark:border-white/10 sm:h-80 sm:w-80">
                 <img
                   src={optimizeImageUrl(MENU.find((m) => m.slug === "egusi")!.image, 640, 80)}
@@ -513,12 +670,8 @@ function Home() {
                   width={640}
                   height={640}
                   loading="lazy"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover animate-rotate-hero"
                 />
-              </div>
-              {/* dashed orbit */}
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                <div className="h-[320px] w-[320px] rounded-full border-2 border-dashed border-primary/20 sm:h-[360px] sm:w-[360px]" />
               </div>
             </div>
 
