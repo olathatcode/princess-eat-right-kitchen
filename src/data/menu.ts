@@ -3,6 +3,28 @@ import egusi from "@/assets/menu/egusi-soup-pounded-yam.jpg";
 import efoRiro from "@/assets/menu/efo-riro-amala.jpg";
 import abula from "@/assets/menu/ewedu-gbegiri-amala.jpg";
 import moiMoi from "@/assets/menu/moi-moi.jpg";
+import friedRice from "@/assets/menu/fried-rice.jpg";
+import semo from "@/assets/menu/semo.jpg";
+import eba from "@/assets/menu/eba.jpg";
+import fufu from "@/assets/menu/fufu.jpg";
+import egg from "@/assets/menu/boiled-egg.jpg";
+import beef from "@/assets/menu/beef.jpg";
+import chicken from "@/assets/menu/fried-chicken.jpg";
+import turkeyBig from "@/assets/menu/turkey-big.jpg";
+import turkeySmall from "@/assets/menu/turkey-small.jpg";
+import wingsSmall from "@/assets/menu/chicken-wings-small.jpg";
+import wingsBig from "@/assets/menu/chicken-wings-big.jpg";
+import coleslaw from "@/assets/menu/coleslaw.jpg";
+import meatPie from "@/assets/menu/meat-pie.jpg";
+import coke from "@/assets/menu/coke-pet.jpg";
+import fanta from "@/assets/menu/fanta-pet.jpg";
+import sprite from "@/assets/menu/sprite-pet.jpg";
+import water from "@/assets/menu/water.jpg";
+import ofadaCoke from "@/assets/menu/ofada-coke.jpg";
+import chapmanDrink from "@/assets/menu/chapman2.jpg";
+import maltaDrink from "@/assets/menu/malta.jpg";
+import maltDrink from "@/assets/menu/malt-drink.jpg";
+import schweppes from "@/assets/menu/schweppes.jpg";
 
 export type MenuCategory = "Rice" | "Swallow & Soup" | "Protein" | "Snacks" | "Drinks";
 
@@ -68,8 +90,7 @@ export const MENU: MenuItem[] = [
       "Thyme",
       "Seasoning",
     ],
-    image:
-      "https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=800&q=80",
+    image: friedRice,
     pairsWith: ["chicken", "turkey-big", "beef", "coleslaw", "moimoi"],
     spiceLevel: 1,
     pricePerSpoon: true,
@@ -96,7 +117,7 @@ export const MENU: MenuItem[] = [
     description:
       "A popular Nigerian swallow made from high-quality semolina flour, cooked to a smooth, firm, and stretchy consistency.",
     ingredients: ["Semolina flour", "Water"],
-    image: "https://i.pinimg.com/1200x/e6/c9/5b/e6c95b6abb2397423e61d05f004757c0.jpg",
+    image: semo,
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -108,7 +129,7 @@ export const MENU: MenuItem[] = [
     description:
       "A staple Nigerian swallow made from pan-fried grated cassava (garri) mixed with hot water to form a firm, dough-like texture.",
     ingredients: ["Garri (cassava grains)", "Water"],
-    image: "https://i.pinimg.com/vwebp/1200x/fa/8e/03/fa8e03bad48021d28a3181e5e2e4afb0.webp",
+    image: eba,
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -120,7 +141,7 @@ export const MENU: MenuItem[] = [
     description:
       "A smooth, soft, and slightly sour swallow made from fermented cassava, cooked and pounded to perfection.",
     ingredients: ["Fermented cassava", "Water"],
-    image: "https://i.pinimg.com/vwebp/736x/b1/a4/07/b1a4073f8761397dd9a3180b305b3bfa.webp",
+    image: fufu,
     pairsWith: ["egusi", "efo-riro"],
   },
   {
@@ -166,8 +187,7 @@ export const MENU: MenuItem[] = [
     description:
       "A single hard-boiled egg, seasoned lightly. A simple, protein-packed addition to any rice dish or swallow.",
     ingredients: ["Egg", "Salt"],
-    image:
-      "https://images.unsplash.com/photo-1587486913049-53fc88980cfc?auto=format&fit=crop&w=800&q=80",
+    image: egg,
     pairsWith: ["jollof-rice", "fried-rice", "egusi", "efo-riro"],
   },
   {
@@ -179,8 +199,7 @@ export const MENU: MenuItem[] = [
     description:
       "A single portion of tender, slow-cooked beef, seasoned with local spices and fried to perfection.",
     ingredients: ["Beef", "Onions", "Garlic", "Ginger", "Seasoning cubes", "Vegetable oil"],
-    image:
-      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80",
+    image: beef,
     pairsWith: ["jollof-rice", "fried-rice", "egusi", "efo-riro"],
   },
   {
@@ -200,8 +219,7 @@ export const MENU: MenuItem[] = [
       "Ginger",
       "Vegetable oil",
     ],
-    image:
-      "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80",
+    image: chicken,
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -213,8 +231,7 @@ export const MENU: MenuItem[] = [
     description:
       "A premium, large cut of turkey, seasoned with our signature spice blend and fried until golden and juicy.",
     ingredients: ["Turkey", "Onions", "Garlic", "Ginger", "Curry", "Thyme", "Vegetable oil"],
-    image:
-      "https://images.unsplash.com/photo-1518492104633-130d0cc84637?auto=format&fit=crop&w=800&q=80",
+    image: turkeyBig,
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -226,7 +243,7 @@ export const MENU: MenuItem[] = [
     description:
       "A medium cut of turkey, perfectly seasoned and fried to a delicious golden brown.",
     ingredients: ["Turkey", "Onions", "Garlic", "Ginger", "Curry", "Thyme", "Vegetable oil"],
-    image: "https://i.pinimg.com/1200x/72/a0/e1/72a0e1e694a1d68c7a1cfe4e1263886d.jpg",
+    image: turkeySmall,
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -238,8 +255,7 @@ export const MENU: MenuItem[] = [
     description:
       "A delicious portion of chicken wings, seasoned with local spices and fried to a perfect crisp.",
     ingredients: ["Chicken wings", "Spices", "Garlic", "Onions", "Vegetable oil"],
-    image:
-      "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80",
+    image: wingsSmall,
     pairsWith: ["jollof-rice", "fried-rice", "coke-pet"],
   },
   {
@@ -251,8 +267,7 @@ export const MENU: MenuItem[] = [
     description:
       "A generous portion of chicken wings, marinated in our special spice blend and fried to golden perfection.",
     ingredients: ["Chicken wings", "Spices", "Garlic", "Onions", "Vegetable oil"],
-    image:
-      "https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80",
+    image: wingsBig,
     pairsWith: ["jollof-rice", "fried-rice", "coke-pet"],
   },
   // Snacks
@@ -265,7 +280,7 @@ export const MENU: MenuItem[] = [
     description:
       "A fresh, crunchy mix of shredded cabbage and carrots tossed in a rich, creamy mayonnaise dressing.",
     ingredients: ["Cabbage", "Carrots", "Mayonnaise", "Sugar", "Vinegar"],
-    image: "https://i.pinimg.com/vwebp/1200x/7c/ce/c2/7ccec2a35343f29a98714ce91d2ff01a.webp",
+    image: coleslaw,
     pairsWith: ["jollof-rice", "fried-rice"],
   },
   {
@@ -285,7 +300,7 @@ export const MENU: MenuItem[] = [
       "Onions",
       "Spices",
     ],
-    image: "https://i.pinimg.com/vwebp/1200x/32/73/21/32732134fee2f05905366757ca0bd46c.webp",
+    image: meatPie,
     pairsWith: ["coke-pet", "fanta-pet", "sprite-pet"],
   },
   {
@@ -317,8 +332,7 @@ export const MENU: MenuItem[] = [
       "Natural flavors",
       "Caffeine",
     ],
-    image:
-      "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80",
+    image: coke,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -336,7 +350,7 @@ export const MENU: MenuItem[] = [
       "Citric acid",
       "Natural orange flavors",
     ],
-    image: "https://i.pinimg.com/1200x/c5/aa/f4/c5aaf4af8bd893c135b7a68ba0177d4d.jpg",
+    image: fanta,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -354,7 +368,7 @@ export const MENU: MenuItem[] = [
       "Natural lemon and lime flavors",
       "Sodium citrate",
     ],
-    image: "https://i.pinimg.com/736x/50/66/27/506627f03926f817a7b4995dcc80cf6e.jpg",
+    image: sprite,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -366,7 +380,7 @@ export const MENU: MenuItem[] = [
     description:
       "Pure, clean, and refreshing premium bottled spring water, served ice-cold to keep you hydrated.",
     ingredients: ["Natural spring water"],
-    image: "https://i.pinimg.com/736x/bc/1a/67/bc1a678485b072d2a383f7c598035d14.jpg",
+    image: water,
     pairsWith: ["jollof-rice", "fried-rice", "amala", "semo", "eba", "fufu"],
   },
   {
@@ -385,8 +399,7 @@ export const MENU: MenuItem[] = [
       "Natural flavors",
       "Caffeine",
     ],
-    image:
-      "https://images.unsplash.com/photo-1554866585-cd94860890b7?auto=format&fit=crop&w=800&q=80",
+    image: ofadaCoke,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -403,8 +416,7 @@ export const MENU: MenuItem[] = [
       "Citric acid",
       "Natural orange flavors",
     ],
-    image:
-      "https://images.unsplash.com/photo-1624517452488-04869289c4ca?auto=format&fit=crop&w=800&q=80",
+    image: chapmanDrink,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -422,7 +434,7 @@ export const MENU: MenuItem[] = [
       "Natural lemon and lime flavors",
       "Sodium citrate",
     ],
-    image: "https://i.pinimg.com/736x/9b/da/90/9bda90d0af9e402db2fc6ed0ad29f09d.jpg",
+    image: maltaDrink,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -442,7 +454,7 @@ export const MENU: MenuItem[] = [
       "Hops",
       "Vitamins",
     ],
-    image: "https://i.pinimg.com/736x/d1/5f/b2/d15fb299900cc5389e87cabd910f3fc6.jpg",
+    image: maltDrink,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
   {
@@ -454,7 +466,7 @@ export const MENU: MenuItem[] = [
     description:
       "A chilled 33cl can of Schweppes, perfect as a refreshing standalone drink or a premium mixer.",
     ingredients: ["Carbonated water", "Sugar", "Citric acid", "Natural flavorings", "Quinine"],
-    image: "https://i.pinimg.com/1200x/cc/fb/b2/ccfbb2964d538316e6d0221ff767d8f3.jpg",
+    image: schweppes,
     pairsWith: ["jollof-rice", "fried-rice", "meat-pie"],
   },
 ];
