@@ -194,7 +194,7 @@ export function SiteFooter() {
             <img
               src="/logo.png"
               alt="Princess Eat Right Kitchen"
-              className="h-28 w-28 object-contain rounded-2xl bg-white/10 p-1 transition-transform duration-700 group-hover:rotate-[360deg]"
+              className="h-28 w-28 object-contain rounded-2xl p-1 transition-transform duration-700 group-hover:rotate-[360deg]"
             />
           </Link>
           <div className="mt-3">
