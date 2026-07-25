@@ -157,7 +157,7 @@ export function SiteHeader() {
 
             {/* Call — small screens */}
             <a
-              href="tel:+2349039108517"
+              href="tel:+2347035855283"
               className="ml-1 flex h-9 w-9 items-center justify-center rounded-full text-foreground/70 transition hover:bg-muted hover:text-foreground sm:hidden"
               aria-label="Call us"
             >
@@ -219,11 +219,11 @@ export function SiteHeader() {
                 Order Now
               </Link>
               <a
-                href="tel:+2349039108517"
+                href="tel:+2347035855283"
                 className="flex items-center justify-center gap-2 rounded-xl border border-border py-3 text-sm font-semibold text-foreground transition hover:border-primary/50"
               >
                 <Phone className="h-4 w-4 text-primary" />
-                +234 903 910 8517
+                +234 703 585 5283
               </a>
             </div>
             {/* quick info */}
@@ -382,11 +382,11 @@ export function SiteFooter() {
               </p>
             </div>
             <a
-              href="tel:+2349039108517"
+              href="tel:+2347035855283"
               className="flex items-center gap-2 text-secondary-foreground/80 transition hover:text-secondary-foreground hover:underline underline-offset-2"
             >
               <Phone className="h-4 w-4 text-primary" />
-              +234 903 910 8517
+              +234 703 585 5283
             </a>
             <a
               href="https://maps.google.com/?q=Princess+Eat+Right+Kitchen+Ijebu+Ode"
@@ -399,7 +399,7 @@ export function SiteFooter() {
           </address>
           {/* WhatsApp CTA */}
           <a
-            href="https://wa.me/+2349039108517"
+            href="https://wa.me/+2347035855283"
             target="_blank"
             rel="noreferrer"
             className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-green-600 py-2.5 text-xs font-bold text-white transition hover:bg-green-700"

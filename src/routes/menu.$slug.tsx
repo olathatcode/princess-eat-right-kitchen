@@ -136,7 +136,7 @@ function MenuDetail() {
   const unit = isSpoon
     ? `${localQty} ${localQty === 1 ? "spoon" : "spoons"}`
     : `${localQty} ${localQty === 1 ? "portion" : "portions"}`;
-  const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
+  const whatsappHref = `https://wa.me/+2347035855283?text=${encodeURIComponent(
     `Hello Princess Eat Right Kitchen, I would like to order ${unit} of ${item.name} (Total: ${formatNaira(totalPrice)}).`,
   )}`;
 
@@ -299,7 +299,7 @@ function MenuDetail() {
 
               {/* call fallback */}
               <a
-                href="tel:+2349039108517"
+                href="tel:+2347035855283"
                 className="mt-3 flex w-full items-center justify-center text-xs text-muted-foreground underline-offset-2 transition hover:text-foreground hover:underline"
               >
                 Or call +234 903 910 8517 to reserve

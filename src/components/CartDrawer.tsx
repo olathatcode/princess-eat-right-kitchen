@@ -98,7 +98,7 @@ export function CartDrawer({ open, onClose }: Props) {
     discountAmt > 0 ? `\n🎁 Discount (${appliedCode}): -${formatNaira(discountAmt)}` : "";
   const deliveryLine =
     deliveryFee > 0 ? `\n🚚 Delivery fee: ${formatNaira(deliveryFee)}` : "\n🚚 Delivery fee: FREE";
-  const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
+  const whatsappHref = `https://wa.me/+2347035855283?text=${encodeURIComponent(
     `Hello Princess Eat Right Kitchen 👋\n\nI'd like to place this order:\n\n${orderLines}${discountLine}${deliveryLine}\n\n*Grand Total: ${formatNaira(grandTotal)}*\n\nPlease confirm availability. Thank you!`,
   )}`;
 

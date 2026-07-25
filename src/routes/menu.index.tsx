@@ -54,7 +54,7 @@ function OrderPanel() {
     })
     .join("\n");
 
-  const whatsappHref = `https://wa.me/+2349039108517?text=${encodeURIComponent(
+  const whatsappHref = `https://wa.me/+2347035855283?text=${encodeURIComponent(
     `Hello Princess Eat Right Kitchen 👋\n\nI'd like to place this order:\n\n${orderLines}\n\n*Total: ${formatNaira(totalPrice)}*\n\nPlease confirm availability. Thank you!`,
   )}`;
 

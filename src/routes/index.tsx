@@ -79,7 +79,7 @@ const MARQUEE_ITEMS = [
   "🥘 Egusi · Efo Riro · Gbegiri",
   "🍗 Peppered Goat Meat & Chicken",
   "🚚 Free delivery on orders over ₦5,000",
-  "📞 Call: +234 903 910 8517",
+  "📞 Call: +234 703 585 5283",
   "⏰ Open Mon–Sat 8am–9pm · Sun 10am–6pm",
   "🌶️ Authentic Ijebu Ode flavours",
   "🫙 Amala · Eba · Pounded Yam",
@@ -625,7 +625,7 @@ function FloatingActions() {
     >
       {/* WhatsApp */}
       <a
-        href="https://wa.me/+2349039108517"
+        href="https://wa.me/+2347035855283"
         target="_blank"
         rel="noreferrer"
         aria-label="Chat on WhatsApp"
@@ -642,7 +642,7 @@ function FloatingActions() {
       </a>
       {/* Call */}
       <a
-        href="tel:+2349039108517"
+        href="tel:+2347035855283"
         aria-label="Call us"
         className="flex h-12 w-12 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/30 transition-all hover:scale-110 hover:bg-primary/90"
       >
@@ -792,7 +792,7 @@ function LoyaltySection() {
                 </button>
               ) : (
                 <a
-                  href="https://wa.me/+2349039108517?text=Hi!%20I%27ve%20earned%20my%20free%20meal%20from%20the%20loyalty%20programme!%20%F0%9F%8E%81"
+                  href="https://wa.me/+2347035855283?text=Hi!%20I%27ve%20earned%20my%20free%20meal%20from%20the%20loyalty%20programme!%20%F0%9F%8E%81"
                   target="_blank"
                   rel="noreferrer"
                   className="flex w-full items-center justify-center gap-2 rounded-full bg-green-500 py-3 text-sm font-bold text-white shadow-md transition hover:bg-green-600 hover:scale-105"
@@ -1218,7 +1218,7 @@ function Home() {
                 <CountdownUnit val={s} label="sec" />
               </div>
               <a
-                href="https://wa.me/+2349039108517?text=Hi!%20I%27d%20like%20to%20order%20the%20Today%27s%20Special%20deal%20please!"
+                href="https://wa.me/+2347035855283?text=Hi!%20I%27d%20like%20to%20order%20the%20Today%27s%20Special%20deal%20please!"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-bold text-primary shadow-xl transition hover:bg-white/90 hover:scale-105 active:scale-95"
@@ -1379,7 +1379,7 @@ function Home() {
           </div>
           <div className="mt-12 text-center">
             <a
-              href="https://wa.me/+2349039108517"
+              href="https://wa.me/+2347035855283"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-green-500 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-green-500/30 transition hover:bg-green-600 hover:scale-105"
@@ -1432,7 +1432,7 @@ function Home() {
                     {
                       icon: <PhoneCall className="h-5 w-5 text-primary" />,
                       label: "Emergency Line",
-                      val: "+234 903 910 8517 (call or WhatsApp)",
+                      val: "+234 703 585 5283 (call or WhatsApp)",
                     },
                   ].map(({ icon, label, val }) => (
                     <div key={label} className="flex items-start gap-3">
@@ -1462,7 +1462,7 @@ function Home() {
                 </div>
                 <div className="flex flex-col gap-3 w-full max-w-xs">
                   <a
-                    href="https://wa.me/+2349039108517"
+                    href="https://wa.me/+2347035855283"
                     target="_blank"
                     rel="noreferrer"
                     className="flex items-center justify-center gap-2 rounded-full bg-green-500 py-3.5 text-sm font-bold text-white transition hover:bg-green-600 hover:scale-105"
@@ -1471,11 +1471,11 @@ function Home() {
                     WhatsApp Order
                   </a>
                   <a
-                    href="tel:+2349039108517"
+                    href="tel:+2347035855283"
                     className="flex items-center justify-center gap-2 rounded-full bg-primary py-3.5 text-sm font-bold text-primary-foreground transition hover:bg-primary/90 hover:scale-105"
                   >
                     <PhoneCall className="h-4 w-4" />
-                    Call +234 903 910 8517
+                    Call +234 703 585 5283
                   </a>
                 </div>
               </div>
@@ -1513,7 +1513,7 @@ function Home() {
               Browse Menu
             </Link>
             <a
-              href="tel:+2349039108517"
+              href="tel:+2347035855283"
               className="rounded-full border-2 border-white/50 bg-white/10 px-8 py-3.5 text-sm font-bold text-white transition hover:bg-white/20 hover:scale-105"
             >
               Call to Order
