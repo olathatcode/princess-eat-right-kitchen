@@ -264,7 +264,7 @@ export function SiteFooter() {
               className="h-30 w-30 rounded-2xl p-1 object-contain transition-transform duration-700 group-hover:rotate-[360deg]"
             />
           </Link>
-          <h3 className="mt-3 bg-gradient-to-r from-primary via-pink-500 to-primary bg-[length:200%_auto] bg-clip-text text-base font-display font-bold text-transparent animate-gradient-flow">
+          <h3 className="mt-1 bg-gradient-to-r from-primary via-pink-500 to-primary bg-[length:200%_auto] bg-clip-text text-base font-display font-bold text-transparent animate-gradient-flow">
             Princess Eat Right Kitchen
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-secondary-foreground/75">
